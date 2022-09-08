@@ -1,0 +1,8 @@
+version: "3.8"
+services:
+  deno:
+    build:
+      context: deno
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
