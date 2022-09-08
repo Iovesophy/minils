@@ -21,7 +21,7 @@ So do not respect command options and multibyte characters for simple logic.
 - Output file name color in default color
 - Output directory names in cyan
 - Output "/" at the end of the directory name (default color)
-- Add a space to the maximum number of characters in a file name or directory name that includes a trailing "/" (Hereinafter, this number of strings is referred to as "maximum name size")
+- Calculate the maximum number of characters in a file name or a directory name with a trailing "/" plus a space (Hereinafter, this number of strings is referred to as "maximum name size")
 - Output spaces at the end of each listing element that the maximum name size minus the number of characters in the file or directory name with a "/" at the end
 - Calculate the maximum number of columns using the terminal window size and the maximum name size
 - Calculate the maximum number of lines using files excluding dot files, the number of directories and the maximum number of columns
