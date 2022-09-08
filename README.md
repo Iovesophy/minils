@@ -29,6 +29,8 @@ So do not respect command options and multibyte characters for simple logic.
 - Print columns to maximum number of rows
 - If the maximum number of rows in a column is exceeded, output to the next column
 
+![Image](assets/implement_image.png)
+
 License
 Copyright (c) 2022 Iovesophy. This software is released under the MIT License, see LICENSE. https://opensource.org/licenses/mit-license.php
 
