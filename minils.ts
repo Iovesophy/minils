@@ -125,7 +125,7 @@ try {
   // top level await with Deno
   const windowsize = await tpusCols();
   await main(Deno.args[0], windowsize, print);
-  Deno.stdout.write(new TextEncoder().encode(parts.NewLine));
+  print(parts.Empty, true);
 } catch (e) {
   console.error(e.message);
 }
