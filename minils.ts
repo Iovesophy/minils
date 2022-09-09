@@ -41,10 +41,10 @@ const print = (filename: string, next: boolean) => {
 };
 
 const dotCheck = (filename: string) => {
-  if (filename[0] == parts.Dot) {
-    return false;
+  if (filename.indexOf(parts.Dot)) {
+    return true;
   }
-  return true;
+  return false;
 };
 
 const pathCheck = (path: string) => {
