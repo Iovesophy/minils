@@ -65,19 +65,19 @@ const tpusCols = async () => {
 
 const main = async (path: string, windowsize: number, callback: Print) => {
   const OSEntriesWithoutDotfiles: OSOriginListEntry[] = [];
-  for await (const directoryEntry of Deno.readDirSync(pathCheck(path))) {
+  for await (const directoryEntry of Deno.readDir(pathCheck(path))) {
     if (dotCheck(directoryEntry.name)) {
       OSEntriesWithoutDotfiles.push(directoryEntry);
     }
   }
-  OSEntriesWithoutDotfiles.sort((a, b) =>
-    a.name.length > b.name.length ? 1 : -1
-  );
 
   // initialize Max
+  const maxentry = OSEntriesWithoutDotfiles.reduce((a, b) =>
+    a.name.length > b.name.length ? a : b
+  );
   const Max: DotCheckedMax = {
-    entry: OSEntriesWithoutDotfiles.slice(-1)[0],
-    size: OSEntriesWithoutDotfiles.slice(-1)[0].name.length,
+    entry: maxentry,
+    size: maxentry.name.length,
   };
   const EditedMax: EditedDotCheckedMax = { entry: Max.entry, size: Max.size };
   if (Max.entry.isDirectory) {
