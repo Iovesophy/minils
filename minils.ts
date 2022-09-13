@@ -1,7 +1,7 @@
 const color: {
-  Cyan: string;
+  Blue: string;
   Reset: string;
-} = { Cyan: "\u001b[36m", Reset: "\u001b[0m" };
+} = { Blue: "\u001b[34m", Reset: "\u001b[0m" };
 
 const parts: {
   OneSpace: string;
@@ -41,10 +41,10 @@ const print = (filename: string, next: boolean) => {
 };
 
 const dotCheck = (filename: string) => {
-  if (filename[0] == parts.Dot) {
-    return false;
+  if (filename.indexOf(parts.Dot)) {
+    return true;
   }
-  return true;
+  return false;
 };
 
 const pathCheck = (path: string) => {
@@ -65,26 +65,22 @@ const tpusCols = async () => {
 
 const main = async (path: string, windowsize: number, callback: Print) => {
   const OSEntriesWithoutDotfiles: OSOriginListEntry[] = [];
-  for await (const directoryEntry of Deno.readDirSync(pathCheck(path))) {
+  for await (const directoryEntry of Deno.readDir(pathCheck(path))) {
     if (dotCheck(directoryEntry.name)) {
       OSEntriesWithoutDotfiles.push(directoryEntry);
     }
   }
-  OSEntriesWithoutDotfiles.sort((a, b) =>
-    a.name.length > b.name.length ? 1 : -1
-  );
 
   // initialize Max
+  const maxentry = OSEntriesWithoutDotfiles.reduce((a, b) =>
+    a.name.length > b.name.length ? a : b
+  );
   const Max: DotCheckedMax = {
-    entry: OSEntriesWithoutDotfiles.slice(-1)[0],
-    size: OSEntriesWithoutDotfiles.slice(-1)[0].name.length,
+    entry: maxentry,
+    size: maxentry.name.length,
   };
   const EditedMax: EditedDotCheckedMax = { entry: Max.entry, size: Max.size };
-  if (Max.entry.isDirectory) {
-    EditedMax.size += 3; // /[2space]: 3
-  } else {
-    EditedMax.size += 2; // [2space]: 2
-  }
+  EditedMax.size += 2;
 
   // calc col and row size
   const Matrix: ViewMatrix = { rowsize: 0, colsize: 0 };
@@ -106,7 +102,7 @@ const main = async (path: string, windowsize: number, callback: Print) => {
       let sizewithslash = 1;
       if (OSEntriesWithoutDotfiles[j].isDirectory) {
         OSEntriesWithoutDotfiles[j].name =
-          color.Cyan +
+          color.Blue +
           OSEntriesWithoutDotfiles[j].name +
           color.Reset +
           parts.Slash;
@@ -125,7 +121,8 @@ try {
   // top level await with Deno
   const windowsize = await tpusCols();
   await main(Deno.args[0], windowsize, print);
-  Deno.stdout.write(new TextEncoder().encode(parts.NewLine));
+  print(parts.Empty, true);
 } catch (e) {
   console.error(e.message);
 }
+
