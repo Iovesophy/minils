@@ -1,7 +1,7 @@
 const color: {
-  Cyan: string;
+  Blue: string;
   Reset: string;
-} = { Cyan: "\u001b[36m", Reset: "\u001b[0m" };
+} = { Blue: "\u001b[34m", Reset: "\u001b[0m" };
 
 const parts: {
   OneSpace: string;
@@ -80,11 +80,7 @@ const main = async (path: string, windowsize: number, callback: Print) => {
     size: maxentry.name.length,
   };
   const EditedMax: EditedDotCheckedMax = { entry: Max.entry, size: Max.size };
-  if (Max.entry.isDirectory) {
-    EditedMax.size += 3; // /[2space]: 3
-  } else {
-    EditedMax.size += 2; // [2space]: 2
-  }
+  EditedMax.size += 2;
 
   // calc col and row size
   const Matrix: ViewMatrix = { rowsize: 0, colsize: 0 };
@@ -106,7 +102,7 @@ const main = async (path: string, windowsize: number, callback: Print) => {
       let sizewithslash = 1;
       if (OSEntriesWithoutDotfiles[j].isDirectory) {
         OSEntriesWithoutDotfiles[j].name =
-          color.Cyan +
+          color.Blue +
           OSEntriesWithoutDotfiles[j].name +
           color.Reset +
           parts.Slash;
@@ -129,3 +125,4 @@ try {
 } catch (e) {
   console.error(e.message);
 }
+
