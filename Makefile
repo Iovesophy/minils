@@ -3,8 +3,8 @@ build:
 	docker compose build
 
 .PHONY: test
-test:
-	docker compose run deno bash -c "cd /app && deno run --allow-read --allow-run minils.ts testdir"
+test: compile
+	./minils testdir
 
 .PHONY: compile
 compile:
