@@ -22,7 +22,7 @@ So do not respect command options and multibyte characters for simple logic.
 - If there is no input in the first argument of the command, enter the current directory
 - If not exist file or directory, print error message to file descriptor 2
 - Output file name color in default color
-- Output directory names in cyan
+- Output directory names in blue
 - Output "/" at the end of the directory name (default color)
 - Calculate the maximum number of characters in a file name with two spaces added or a directory name with a trailing "/" with a space added(Hereinafter, this number of strings is referred to as `<maximum name size>`)
 - Output spaces at the end of each listing element, the `<maximum name size>` minus the number of characters in the file name or directory name with a "/" at the end
